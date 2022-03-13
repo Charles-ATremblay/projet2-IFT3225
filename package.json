@@ -1,0 +1,17 @@
+{
+  "name": "projet2-IFT3225",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Charles-ATremblay/projet2-IFT3225.git",
+  "author": "Kanon <gokagokaigokai@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3",
+    "http-proxy-middleware": "^2.0.3",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+  
+}

@@ -1,0 +1,74 @@
+body {
+  font-family: sans-serif, cursive;
+  background-color: rgb(17, 21, 22);
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+
+hr {
+  width: 40%;
+  margin: auto;
+}
+
+.blue {
+  color: rgb(31, 112, 235);
+}
+
+.red {
+  color: rgb(250, 57, 57);
+}
+
+/* Headings */
+.big-heading {
+  font-size: 3.5rem;
+  line-height: 2;
+}
+
+/* Containers */
+.container-fluid {
+  padding: 2% 8%;
+}
+
+.firstcontainer {
+  margin-top: 100px;
+  
+}
+
+/* Title description */
+#title {
+  background-color: rgb(17, 21, 22);
+}
+
+#title .container-fluid {
+  padding: 3% 12% 5%;
+}
+
+#title p {
+  font-size: 16px;
+}
+
+/* Navigation Bar */
+.navbar {
+  padding: 6px 0 6px;
+  background-color: #0a0a0a;
+}
+
+.nav-item {
+  padding: 2px 18px;
+}
+
+.nav-link {
+  font-size: 1rem;
+}
+
+@media (max-width: 1028px) {
+  #title {
+    text-align: center;
+  }
+
+}
