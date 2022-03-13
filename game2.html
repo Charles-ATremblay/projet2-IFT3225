@@ -30,7 +30,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="game2.html">Synonym</a>
+        <a class="nav-link" href="game2.html">Instruction</a>
       </li>
 
       <li class="nav-item">
@@ -85,6 +85,7 @@
 			  crossorigin="anonymous"></script>
 			  
 <script>
+  var count = 60
 
 	$(document).ready(function(){
 
@@ -97,6 +98,7 @@
         // i=getRandomInt(100)
         i=0
         answer = "True"
+        count = 60
 
         var str = '<tr>' +
           '<td>Word</td>' +
@@ -110,6 +112,7 @@
         $(".display-data").html("");
         $(".display-data").append(str);
 
+        $("h3").html("Timer")
         $("#textSynonym").hide()
         $("#btnEnter").hide()
         $("#btnStart").show()
@@ -130,22 +133,32 @@
       $("#btnEnter").click(function(){
         // $("#textSynonym")...
         // ... is right anwser? alert...
-
+        stopTimer()
         restart()
 
       });
     
-      // To-Do
       function startTimer(){
-        $("h3").html("60.. suppose to count down")
-        // Will call timeUp() when timer reaches 0
+        $("h3").html(count)
+        timer = setInterval(() => {
+          count --
+          $("h3").html(count)
+          if(count == 0){
+            $("h3").html(count)
+            clearInterval(timer)
+            timesUp()
+          }
+        }, 1000)
       }
 
-      function timeUp(){
-        alert("You lost")
+      function timesUp(){
+        alert("You did not answer in time. You lost :(")
         restart()
       }
 
+      function stopTimer(){
+        clearInterval(timer)
+      }
 		});
 
   });

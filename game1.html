@@ -30,7 +30,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="game2.html">Synonym</a>
+        <a class="nav-link" href="game2.html">Instruction</a>
       </li>
 
       <li class="nav-item">
@@ -89,6 +89,7 @@
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
+  var count = 60
 
 	$(document).ready(function(){
 
@@ -102,6 +103,7 @@
         i=0
         x=i
         answer = "True"
+        count = 60
 
         // Decides if it will true or false
         if(Math.random() <= 0.5){
@@ -125,6 +127,7 @@
         $(".display-data").html("");
         $(".display-data").append(str);
 
+        $("h3").html("Timer")
         $("#btnTrue").hide()
         $("#btnFalse").hide()
         $("#btnStart").show()
@@ -143,35 +146,47 @@
 
       $("#btnTrue").click(function(){
         if(answer=="True"){
-          alert("You won")
+          alert("You won :)")
         } else{
-          alert("You lost")
+          alert("You lost :(")
         }
-
+        stopTimer()
         restart()
 
       });
 
       $("#btnFalse").click(function(){
         if(answer=="False"){
-          alert("You won")
+          alert("You won :)")
         } else{
-          alert("You lost")
+          alert("You lost :(")
         }
-        
+        stopTimer()
         restart()
 
       });
     
-      // To-Do
       function startTimer(){
-        $("h3").html("60.. suppose to count down")
-        // Will call timeUp() when timer reaches 0
+        
+        $("h3").html(count)
+        timer = setInterval(() => {
+          count --
+          $("h3").html(count)
+          if(count == 0){
+            $("h3").html(count)
+            clearInterval(timer)
+            timesUp()
+          }
+        }, 1000)
       }
 
-      function timeUp(){
-        alert("You lost")
+      function timesUp(){
+        alert("You did not answer in time. You lost :(")
         restart()
+      }
+
+      function stopTimer(){
+        clearInterval(timer)
       }
 
 		});
