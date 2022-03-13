@@ -17,7 +17,7 @@
   <nav class="navbar navbar-expand-sm navbar-light rounded">
 
     <ul class="nav navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="home.html">Home</a>
       </li>
 
@@ -25,7 +25,7 @@
         <a class="nav-link" href="consult.html">Consult</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="game1.html">True or False</a>
       </li>
 
@@ -65,12 +65,17 @@
   <div class="container-fluid">
 
     <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have, then please be patient for it to load</p>
+    
+    <h3>Timer</h3>
+    <input type="button" id="btnStart" class="btn btn-danger" value="Start" />
+    <input type="button" id="btnTrue" class="btn btn-danger" value="True" />
+    <input type="button" id="btnFalse" class="btn btn-danger" value="False" />
 
     <table class="table table-striped display-data">
-        <tr>
-        </tr>
-    </table>
-    
+      <tr>
+      </tr>
+  </table>
+  
   </div>
 
 </body>
@@ -80,30 +85,98 @@
 			  crossorigin="anonymous"></script>
 			  
 <script>
+    
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
 	$(document).ready(function(){
+
     $.getJSON('scrap.json', function(data){
       $("p").hide();
+      restart()
 
-			var str = '<tr>' +
+      function restart() {
+        // To uncomment when game1 is done
+        // i=getRandomInt(100)
+        i=0
+        x=i
+        answer = "True"
+
+        // Decides if it will true or false
+        if(Math.random() <= 0.5){
+          x=getRandomInt(99)
+          answer = "False"
+        }
+
+        var str = '<tr>' +
           '<td>Start</td>' +
           '<td>Relation</td>' +
           '<td>End</td>' +
           '</tr>';
-
-			for(var i=0; i<data['start'].length; i++){
-				str += '<tr>' +
+          
+        str += '<tr>' +
           '<td>' + data['start'][i] + '</td>' +
           '<td>' + data['relation'][i] + '</td>' +
-          '<td>' + data['end'][i] + '</td>' +
+          '<td>' + data['end'][x] + '</td>' +
           '</tr>';
-			}
 			
-			$(".display-data").append(str);
 
-			});
+        $(".display-data").html("");
+        $(".display-data").append(str);
 
-    });
+        $("#btnTrue").hide()
+        $("#btnFalse").hide()
+        $("#btnStart").show()
+        $(".table").hide()
+
+       }
+
+      $("#btnStart").click(function(){
+        $("#btnTrue").show()
+        $("#btnFalse").show()
+        $("#btnStart").hide()
+        $(".table").show()
+        startTimer()
+
+      });
+
+      $("#btnTrue").click(function(){
+        if(answer=="True"){
+          alert("You won")
+        } else{
+          alert("You lost")
+        }
+
+        restart()
+
+      });
+
+      $("#btnFalse").click(function(){
+        if(answer=="False"){
+          alert("You won")
+        } else{
+          alert("You lost")
+        }
+        
+        restart()
+
+      });
+    
+      // To-Do
+      function startTimer(){
+        $("h3").html("60.. suppose to count down")
+        // Will call timeUp() when timer reaches 0
+      }
+
+      function timeUp(){
+        alert("You lost")
+        restart()
+      }
+
+		});
+
+  });
 
 </script>
 

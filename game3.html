@@ -17,7 +17,7 @@
   <nav class="navbar navbar-expand-sm navbar-light rounded">
 
     <ul class="nav navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="home.html">Home</a>
       </li>
 
@@ -33,7 +33,7 @@
         <a class="nav-link" href="game2.html">Synonym</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="game3.html">Who am I</a>
       </li>
     </ul>
@@ -56,8 +56,6 @@
 
     </div>
 
-    
-
   </section>
 
   <!-- Tables -->
@@ -65,12 +63,17 @@
   <div class="container-fluid">
 
     <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have, then please be patient for it to load</p>
+    
+    <h3>Timer</h3>
+    <input type="button" id="btnStart" class="btn btn-danger" value="Start" />
+    <input type="text" id="textGuess" placeholder="Guess the word">
+    <input type="button" id="btnEnter" class="btn btn-danger" value="Enter" />
 
     <table class="table table-striped display-data">
-        <tr>
-        </tr>
+      <tr>
+      </tr>
     </table>
-    
+  
   </div>
 
 </body>
@@ -80,30 +83,87 @@
 			  crossorigin="anonymous"></script>
 			  
 <script>
-
+    
 	$(document).ready(function(){
+
     $.getJSON('scrap.json', function(data){
       $("p").hide();
+      restart()
 
-			var str = '<tr>' +
+      function restart() {
+        // To uncomment when game1 is done
+        // i=getRandomInt(100)
+        i=0
+        answer = "True"
+
+        var str = '<tr>' +
           '<td>Start</td>' +
           '<td>Relation</td>' +
           '<td>End</td>' +
           '</tr>';
-
-			for(var i=0; i<data['start'].length; i++){
-				str += '<tr>' +
+          
+        // Decides if the hint will be at the start or at the end
+        if(Math.random() <= 0.5){
+          str += '<tr>' +
           '<td>' + data['start'][i] + '</td>' +
+          '<td>' + data['relation'][i] + '</td>' +
+          '<td>' + "???" + '</td>' +
+          '</tr>';
+
+          $(".display-data").html("");
+          $(".display-data").append(str);
+
+        } else {
+          str += '<tr>' +
+          '<td>' + "???" + '</td>' +
           '<td>' + data['relation'][i] + '</td>' +
           '<td>' + data['end'][i] + '</td>' +
           '</tr>';
-			}
-			
-			$(".display-data").append(str);
 
-			});
+          $(".display-data").html("");
+          $(".display-data").append(str);
 
-    });
+        }
+
+        $("#textGuess").hide()
+        $("#btnEnter").hide()
+        $("#btnStart").show()
+        $(".table").hide()
+
+       }
+
+      $("#btnStart").click(function(){
+        $("#textGuess").show()
+        $("#btnEnter").show()
+        $("#btnStart").hide()
+        $(".table").show()
+        startTimer()
+
+      });
+
+      // To do
+      $("#btnEnter").click(function(){
+        // $("#textGues")...
+        // ... is right anwser? alert...
+
+        restart()
+
+      });
+    
+      // To-Do
+      function startTimer(){
+        $("h3").html("60.. suppose to count down")
+        // Will call timeUp() when timer reaches 0
+      }
+
+      function timeUp(){
+        alert("You lost")
+        restart()
+      }
+
+		});
+
+  });
 
 </script>
 

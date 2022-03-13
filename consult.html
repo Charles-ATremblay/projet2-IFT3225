@@ -26,7 +26,15 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="games.html">Games</a>
+        <a class="nav-link" href="game1.html">True or False</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="game2.html">Synonym</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="game3.html">Who am I</a>
       </li>
     </ul>
 
@@ -38,24 +46,25 @@
 
     <div class="container-fluid">
 
+      <hr>
+
       <div class="row firstcontainer">
         <h2 class="big-heading mouvement">ConceptNet</h2>
       </div>
 
-      <!-- <div class="row">
-        <p>Description... if wanted</p>
-      </div> -->
-      
+      <hr>
+
     </div>
-
-    <hr>
-
+    
   </section>
 
   <!-- Tables -->
 
   <div class="container-fluid">
-
+    <!-- Enter a concept or/and a relation -->
+    <input type="text" id="searchConcept" placeholder="Enter a concept">
+    <input type="text" id="searchRelation" placeholder="Enter a relation">
+    <input type="button" id="btnAjaxCall" value="Search" />
     <p>If you see this message, it's because of CORS. Write on the terminal yarn start</p>
 
     <table class="table table-striped display-data">
@@ -72,6 +81,76 @@
 			  
 <script>
   // curl "localhost:3000/conceptnet/c/en/car"
+
+  $(document).ready(function(){
+
+    // $("#btnAjaxCall").click(function(){
+      
+    // });
+
+
+    var str = '<tr>' +
+          '<td>Start</td>' +
+          '<td>Relation</td>' +
+          '<td>End</td>' +
+          '</tr>';
+			
+			
+			$("p").hide();
+			$(".display-data").append(str);
+
+    $("#btnAjaxCall").click(function(){
+
+      $.ajax({
+          searchConceptEN:'http://localhost:3000/conceptnet/c/en/'+searchConcept,
+
+      }).done(function(searchConceptEN){
+        $.ajax({
+          searchConceptFR:'http://localhost:3000/conceptnet/c/fr/'+searchConcept,
+
+        }).done(function(searchConceptFR){
+          
+          // $.each(repos, function(index, repo){
+          //   $('#repos').append(`
+
+          //   `);
+
+          console.log(searchConceptFR)
+
+          });
+
+        });
+
+        // str += '<tr>' +
+          // '<td>' + searchConceptEN['start'][i] + '</td>' +
+          // '<td>' + searchConceptEN['relation'][i] + '</td>' +
+          // '<td>' + searchConceptEN['end'][i] + '</td>' +
+          // '</tr>';
+
+          console.log(searchConceptEN)
+          
+      });
+    
+
+    $("#btnAjaxCall").click(function(){
+
+      let searchRelation= e.target.value;
+
+      $.ajax({
+          searchRelation:'http://api.conceptnet.io/query?rel=/r/'+searchRelation+'&limit=1000',
+
+      }).done(function(searchConceptEN){
+
+        console.log(searchRelation)
+
+      });
+
+
+    });
+
+  });
+  
+
 
 </script>
 
