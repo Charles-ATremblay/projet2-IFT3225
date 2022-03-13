@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>ConceptNet Project</title>
+
+  <!-- CSS Stylesheets -->
+  <!-- Boostrap CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="/css/main.css"> -->
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm navbar-light rounded">
+    <ul class="nav navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" id="ahome">Home</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" id="aconsult">Consult</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" id="agame1">True or False</a>
+      </li>
+
+      <li class="nav-item agame2">
+        <a class="nav-link" id="agame2">Instruction</a>
+      </li>
+
+      <li class="nav-item agame3">
+        <a class="nav-link" id="agame3">Who am I</a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <!-- Title -->
+
+  <section id="title">
+    <div class="container-fluid">
+
+      <hr>
+
+      <div class="row firstcontainer">
+        <h2 class="big-heading mouvement">ConceptNet</h2>
+      </div>
+
+      <hr>
+
+    </div>
+
+
+
+  </section>
+
+  <!-- Project Pages -->
+
+  <section id="home">
+    <div class="container-fluid">
+
+      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
+        then please be patient for it to load</p>
+
+      <table class="table table-striped display-data-home">
+        <tr>
+        </tr>
+      </table>
+
+    </div>
+
+  </section>
+
+  <section id="consult">
+    <div class="container-fluid">
+
+      <input type="text" id="searchConcept" placeholder="Enter a concept">
+      <input type="text" id="searchRelation" placeholder="Enter a relation">
+      <input type="button" id="btnAjaxCall-consult" value="Search" />
+      <p>If you see this message, it's because of CORS. Write on the terminal yarn start</p>
+
+      <table class="table table-striped display-data-consult">
+        <tr>
+        </tr>
+      </table>
+    </div>
+
+    </div>
+
+  </section>
+
+  <section id="game1">
+    <div class="container-fluid">
+
+      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
+        then please be patient for it to load</p>
+
+      <h3>Timer</h3>
+      <input type="button" id="btnStart-game1" class="btn btn-danger" value="Start" />
+      <input type="button" id="btnTrue-game1" class="btn btn-danger" value="True" />
+      <input type="button" id="btnFalse-game1" class="btn btn-danger" value="False" />
+
+      <table class="table table-striped display-data-game1">
+        <tr>
+        </tr>
+      </table>
+
+    </div>
+
+  </section>
+
+  <section id="game2">
+    <div class="container-fluid">
+
+      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
+        then please be patient for it to load</p>
+
+      <h3>Timer</h3>
+      <input type="button" id="btnStart-game2" class="btn btn-danger" value="Start" />
+      <input type="text" id="textSynonym-game2" placeholder="Synonym(s)?">
+      <input type="button" id="btnEnter-game2" class="btn btn-danger" value="Enter" />
+
+      <table class="table table-striped display-data-game2">
+        <tr>
+        </tr>
+      </table>
+
+    </div>
+
+  </section>
+
+  <section id="game3">
+    <div class="container-fluid">
+
+      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
+        then please be patient for it to load</p>
+
+      <h3>Timer</h3>
+      <input type="button" id="btnStart-game3" class="btn btn-danger" value="Start" />
+      <input type="text" id="textGuess-game3" placeholder="Guess the word">
+      <input type="button" id="btnEnter-game3" class="btn btn-danger" value="Enter" />
+
+      <table class="table table-striped display-data-game3">
+        <tr>
+        </tr>
+      </table>
+
+    </div>
+
+  </section>
+
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+<script>
+
+  $(document).ready(function () {
+    $("p").hide();
+    hideAll()
+    $("#home").show()
+
+  });
+
+  $("#ahome").click(function () {
+    hideAll()
+    $("#home").show()
+    $("h2").text("Home")
+  });
+
+  $("#aconsult").click(function () {
+    hideAll()
+    $("#consult").show()
+    $("h2").text("Consult")
+  });
+
+  $("#agame1").click(function () {
+    hideAll()
+    $("#game1").show()
+    $("h2").text("True or False")
+  });
+
+  $("#agame2").click(function () {
+    hideAll()
+    $("#game2").show()
+    $("h2").text("Synonym")
+  });
+
+  $("#agame3").click(function () {
+    hideAll()
+    $("#game3").show()
+    $("h2").text("Who am I")
+  });
+
+  function hideAll() {
+    $("#home").hide()
+    $("#consult").hide()
+    $("#game1").hide()
+    $("#game2").hide()
+    $("#game3").hide()
+  }
+
+
+</script>
+
+<script src="js/home.js"></script>
+<script src="js/consult.js"></script>
+<script src="js/game1.js"></script>
+<script src="js/game2.js"></script>
+<script src="js/game3.js"></script>
+
+</html>
