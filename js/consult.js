@@ -7,43 +7,46 @@ $(document).ready(function () {
 
     $(".display-data-consult").append(str);
 
-    $("#btnAjaxCall-consult").click(function () {
-        $.ajax({
-            searchConceptEN: 'http://localhost:3000/conceptnet/c/en/' + searchConcept,
-            method: "GET",
-            dataType: 'json'
-        }).done(function (searchConceptEN) {
+    $("#btnAjaxCall-consult").click(
+        function () {
+            var searchConcept = $("#searchConcept").val();
+            var searchRelation = $("#searchRelation").val();
+            str =""
+
+            if (searchConcept == "") {
+                url = "http://localhost:3000/conceptnet/query?rel=/r/" + searchRelation + "&limit=1000"
+            } else
+                if (searchRelation == "") {
+                    url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&limit=1000"
+                } else {
+                    url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&rel=/r/" + searchRelation + "&limit=1000"
+                }
 
             $.ajax({
-                searchConceptFR: 'http://localhost:3000/conceptnet/c/fr/' + searchConcept,
+                url: url,
                 method: "GET",
                 dataType: 'json'
-            }).done(function (searchConceptFR) {
+            }).done(function (data) {
 
-                console.log(searchConceptFR)
+                
+                for (let i = 0; i < 2; i++) {
+                    o = data['edges'][i]
+
+                    str += '<tr>' +
+                        '<td>' + o['start']['label'] + '</td>' +
+                        '<td>' + o['rel']['label'] + '</td>' +
+                        '<td>' + o['end']['label'] + '</td>' +
+                        '</tr>';
+                    $(".display-data-consult").append(str)
+                }
+
+                console.log(data)
 
             });
 
-            console.log(searchConceptEN)
-
         });
 
-    });
-
-
-    $("#btnAjaxCall-consult").click(function () {
-        $.ajax({
-            searchRelation: 'http://api.conceptnet.io/query?rel=/r/' + searchRelation + '&limit=1000',
-            method: "GET",
-            dataType: 'json'
-
-        }).done(function (searchConceptEN) {
-
-            console.log(searchRelation)
-
-        });
-
-
-    });
 
 });
+
+// response = requests.get('http://api.conceptnet.io/query?start=/c/en/apple&rel=/r/ExternalURL&limit=1000')
