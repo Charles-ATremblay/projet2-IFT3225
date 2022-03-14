@@ -82,17 +82,27 @@
       <input type="text" id="searchConcept" placeholder="Enter a concept">
       <input type="text" id="searchRelation" placeholder="Enter a relation">
       <input type="button" id="btnAjaxCall-consult" value="Search" />
+      <input type="button" id="prev" value="Previous" />
+      <input type="button" id="next" value="Next" />
+      <br>
+      <br>
+      <h6></h6>
+      <h4>Current offset</h4>
+      <h5>0</h5>
+      <br>
       <p>If you see this message, it's because of CORS. Write on the terminal yarn start</p>
 
-      <table class="table table-striped display-data-consult">
-        <tr>
-        </tr>
+      <!-- table-striped -->
+      <table class="table display-data-consult">
+        <!-- <tr>
+        </tr> -->
       </table>
     </div>
 
     </div>
 
   </section>
+
 
   <section id="game1">
     <div class="container-fluid">
@@ -121,9 +131,12 @@
         then please be patient for it to load</p>
 
       <h3>Timer</h3>
+      <h4 class = "Instructions">Instruction</h4>
       <input type="button" id="btnStart-game2" class="btn btn-danger" value="Start" />
-      <input type="text" id="textSynonym-game2" placeholder="Synonym(s)?">
+      <input type="text" id="textGuess-game2" placeholder="Take a guess">
       <input type="button" id="btnEnter-game2" class="btn btn-danger" value="Enter" />
+      <input type="button" id="btnRestart-game2" class="btn btn-danger" value="Restart" />
+
 
       <table class="table table-striped display-data-game2">
         <tr>
@@ -208,13 +221,12 @@
     $("#game3").hide()
   }
 
-
 </script>
 
-<script src="js/home.js"></script>
-<script src="js/consult.js"></script>
-<script src="js/game1.js"></script>
-<script src="js/game2.js"></script>
-<script src="js/game3.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/consult.js"></script>
+<script src="./js/game1.js"></script>
+<script src="./js/game2.js"></script>
+<script src="./js/game3.js"></script>
 
 </html>

@@ -10,8 +10,7 @@ $(document).ready(function () {
 
         function restart() {
             // To uncomment when game1 is done
-            // i=getRandomInt(100)
-            i = 0
+            i=getRandomInt(100)
             x = i
             answer = "True"
             count = 60
