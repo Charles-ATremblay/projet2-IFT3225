@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var str = '<tr>' +
         '<td>Start</td>' +
         '<td>Relation</td>' +
@@ -14,9 +14,20 @@ $(document).ready(function () {
     $("#prev").hide()
     $("#next").hide()
 
-    $("#btnAjaxCall-consult").click(function () {
+    $("#btnAjaxCall-consult").click(function() {
         searchConcept = $("#searchConcept").val();
         searchRelation = $("#searchRelation").val();
+
+        searchConcept = searchConcept.replaceAll(" ", "_")
+        searchConcept = searchConcept.toLowerCase()
+        searchConcept = searchConcept.replaceAll("a_", "")
+        searchConcept = searchConcept.replaceAll("an_", "")
+
+        searchRelation = searchRelation.replaceAll(" ", "_")
+        searchRelation = searchRelation.toLowerCase()
+        searchRelation = searchRelation.replaceAll("a_", "")
+        searchRelation = searchRelation.replaceAll("an_", "")
+
         $(".display-data-consult").html('<tr>' +
             '<td>Start</td>' +
             '<td>Relation</td>' +
@@ -32,21 +43,20 @@ $(document).ready(function () {
         if (searchConcept == "") {
             url = "http://localhost:3000/conceptnet/query?start=/c/en&rel=/r/" + searchRelation + "&limit=1000"
         } else
-            if (searchRelation == "") {
-                url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&limit=1000"
-            } else {
-                url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&rel=/r/" + searchRelation + "&limit=1000"
-            }
+        if (searchRelation == "") {
+            url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&limit=1000"
+        } else {
+            url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&rel=/r/" + searchRelation + "&limit=1000"
+        }
 
         $.ajax({
             url: url,
             method: "GET",
             dataType: 'json'
-        }).done(function (data) {
+        }).done(function(data) {
 
             for (let i = 0; i < data['edges'].length; i++) {
                 o = data['edges'][i]
-                console.log(data['edges'].length)
 
                 if (o['start']['language'] == lg && o['end']['language'] == lg) {
                     str = '<tr>' +
@@ -74,15 +84,12 @@ $(document).ready(function () {
 
             }
 
-            console.log(data)
-
-
 
         });
 
     });
 
-    $("#prev").click(function () {
+    $("#prev").click(function() {
         $(".display-data-consult").html('<tr>' +
             '<td>Start</td>' +
             '<td>Relation</td>' +
@@ -98,23 +105,22 @@ $(document).ready(function () {
         }
 
         if (searchConcept == "") {
-            url = "http://localhost:3000/conceptnet/query?start=/c/en&rel=/r/" + searchRelation + "&offset=" + offset + "&limit=1000"
+            url = "http://localhost:3000/conceptnet/query?start=/c/en/&rel=/r/" + searchRelation + "&offset=" + offset + "&limit=1000"
         } else
-            if (searchRelation == "") {
-                url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&offset=" + offset + "&limit=1000"
-            } else {
-                url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&rel=/r/" + searchRelation + "&offset=" + offset + "&limit=1000"
-            }
+        if (searchRelation == "") {
+            url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&offset=" + offset + "&limit=1000"
+        } else {
+            url = "http://localhost:3000/conceptnet/query?start=/c/en/" + searchConcept + "&rel=/r/" + searchRelation + "&offset=" + offset + "&limit=1000"
+        }
 
         $.ajax({
             url: url,
             method: "GET",
             dataType: 'json'
-        }).done(function (data) {
+        }).done(function(data) {
 
             for (let i = 0; i < data['edges'].length; i++) {
                 o = data['edges'][i]
-                console.log(data['edges'].length)
 
                 if (o['start']['language'] == lg && o['end']['language'] == lg) {
                     str = '<tr>' +
@@ -143,13 +149,11 @@ $(document).ready(function () {
 
             }
 
-            console.log(data)
-
         });
 
     });
 
-    $("#next").click(function () {
+    $("#next").click(function() {
         $(".display-data-consult").html('<tr>' +
             '<td>Start</td>' +
             '<td>Relation</td>' +
@@ -159,16 +163,14 @@ $(document).ready(function () {
         $("h5").text(offset + 1000 + " for Concept: " + searchConcept + " and Relation: " + searchRelation)
         $("#prev").show()
 
-        console.log(offset)
         $.ajax({
             url: "http://localhost:3000/conceptnet" + urlnext,
             method: "GET",
             dataType: 'json'
-        }).done(function (data) {
+        }).done(function(data) {
 
             for (let i = 0; i < data['edges'].length; i++) {
                 o = data['edges'][i]
-                console.log(data['edges'].length)
 
                 if (o['start']['language'] == lg && o['end']['language'] == lg) {
                     str = '<tr>' +
@@ -198,9 +200,6 @@ $(document).ready(function () {
                 }
 
             }
-
-            console.log(data)
-
         });
 
     });

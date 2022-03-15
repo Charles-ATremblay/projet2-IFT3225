@@ -20,24 +20,7 @@
       <li class="nav-item">
         <a class="nav-link" id="ahome">Home</a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link" id="aconsult">Consult</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" id="agame1">True or False</a>
-      </li>
-
-      <li class="nav-item agame2">
-        <a class="nav-link" id="agame2">Instruction</a>
-      </li>
-
-      <li class="nav-item agame3">
-        <a class="nav-link" id="agame3">Who am I</a>
-      </li>
     </ul>
-
   </nav>
 
   <!-- Title -->
@@ -66,6 +49,13 @@
 
       <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
         then please be patient for it to load</p>
+
+      <input type="button" id="btn-consult" class="btn btn-danger" value="Consult"/>
+      <input type="button" id="btn-games" class="btn btn-danger" value="Games"/>
+      <input type="button" id="btn-game-1" class="btn btn-danger" value="True or False"/>
+      <input type="button" id="btn-game-2" class="btn btn-danger" value="Instructions"/>
+      <input type="button" id="btn-game-3" class="btn btn-danger" value="Who Am I?"/>
+
 
       <table class="table table-striped display-data-home">
         <tr>
@@ -154,6 +144,7 @@
         then please be patient for it to load</p>
 
       <h3>Timer</h3>
+      <h4 class = "WhoAmI"></h4>
       <input type="button" id="btnStart-game3" class="btn btn-danger" value="Start" />
       <input type="text" id="textGuess-game3" placeholder="Guess the word">
       <input type="button" id="btnEnter-game3" class="btn btn-danger" value="Enter" />
@@ -180,38 +171,78 @@
     $("p").hide();
     hideAll()
     $("#home").show()
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("h2").text("Games")
 
   });
 
   $("#ahome").click(function () {
     hideAll()
     $("#home").show()
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("#btn-games").show()
+    $("#btn-consult").show()
     $("h2").text("Home")
   });
 
-  $("#aconsult").click(function () {
+  $("#btn-games").click(function() {
+    hideAll()
+    $("#home").show()
+    $("#btn-game-1").show()
+    $("#btn-game-2").show()
+    $("#btn-game-3").show()
+    $("#btn-games").hide()
+    $("#btn-consult").hide()
+    $("h2").text("Games")
+  })
+
+  $("#btn-consult").click(function() {
     hideAll()
     $("#consult").show()
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("#btn-games").hide()
+    $("#btn-consult").hide()
     $("h2").text("Consult")
-  });
+  })
 
-  $("#agame1").click(function () {
+  $("#btn-game-1").click(function() {
     hideAll()
     $("#game1").show()
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("#btn-games").hide()
+    $("#btn-consult").hide()
     $("h2").text("True or False")
-  });
+  })
 
-  $("#agame2").click(function () {
+  $("#btn-game-2").click(function() {
     hideAll()
     $("#game2").show()
-    $("h2").text("Synonym")
-  });
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("#btn-games").hide()
+    $("#btn-consult").hide()
+    $("h2").text("Instructions")
+  })
 
-  $("#agame3").click(function () {
+  $("#btn-game-3").click(function() {
     hideAll()
     $("#game3").show()
-    $("h2").text("Who am I")
-  });
+    $("#btn-game-1").hide()
+    $("#btn-game-2").hide()
+    $("#btn-game-3").hide()
+    $("#btn-games").hide()
+    $("#btn-consult").hide()
+    $("h2").text("Who Am I?")
+  })
 
   function hideAll() {
     $("#home").hide()

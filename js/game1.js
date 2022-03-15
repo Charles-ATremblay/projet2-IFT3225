@@ -1,5 +1,5 @@
-$(document).ready(function () {
-    $.getJSON('scrap.json', function (data) {
+$(document).ready(function() {
+    $.getJSON('scrap.json', function(data) {
         var count
         var timer
         restart()
@@ -9,8 +9,9 @@ $(document).ready(function () {
         }
 
         function restart() {
+            stopTimer()
             // To uncomment when game1 is done
-            i=getRandomInt(100)
+            i = getRandomInt(100)
             x = i
             answer = "True"
             count = 60
@@ -45,7 +46,7 @@ $(document).ready(function () {
 
         }
 
-        $("#btnStart-game1").click(function () {
+        $("#btnStart-game1").click(function() {
             $("#btnTrue-game1").show()
             $("#btnFalse-game1").show()
             $("#btnStart-game1").hide()
@@ -54,7 +55,7 @@ $(document).ready(function () {
 
         });
 
-        $("#btnTrue-game1").click(function () {
+        $("#btnTrue-game1").click(function() {
             if (answer == "True") {
                 alert("You won :)")
             } else {
@@ -65,7 +66,7 @@ $(document).ready(function () {
 
         });
 
-        $("#btnFalse-game1").click(function () {
+        $("#btnFalse-game1").click(function() {
             if (answer == "False") {
                 alert("You won :)")
             } else {
@@ -99,27 +100,27 @@ $(document).ready(function () {
             clearInterval(timer)
         }
 
-        $("#ahome").click(function () {
+        $("#ahome").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#aconsult").click(function () {
+        $("#aconsult").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame1").click(function () {
+        $("#agame1").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame2").click(function () {
+        $("#agame2").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame3").click(function () {
+        $("#agame3").click(function() {
             restart()
             stopTimer()
         });

@@ -1,21 +1,32 @@
-$(document).ready(function () {
-    $.getJSON('scrap.json', function (data) {
+$(document).ready(function() {
+    $.getJSON('scrap.json', function(data) {
         var count
+        var i
         var str
         var answer
+        var startArray
+        var hintsStartArray
+        var hintsEndArray
+        var endArray
         var timer
+        var points
+        var firstHint
+        var lg = 'en'
         restart()
 
         function restart() {
             // To uncomment when game1 is done
-            // i=getRandomInt(100)
             i = 0
+            points = 8
             answer = "True"
             count = 0
+            startArray = []
+            endArray = []
+            hintsEndArray = []
+            hintsStartArray = []
+            firstHint = ""
             str = '<tr>' +
-                '<td>Start</td>' +
-                '<td>Relation</td>' +
-                '<td>End</td>' +
+                '<td>Hints</td>' +
                 '</tr>';
 
             $("h3").html("Timer")
@@ -24,6 +35,7 @@ $(document).ready(function () {
 
             addHint()
 
+            $(".WhoAmI").html("")
             $("#textGuess-game3").hide()
             $("#btnEnter-game3").hide()
             $("#btnStart-game3").show()
@@ -31,7 +43,60 @@ $(document).ready(function () {
 
         }
 
-        $("#btnStart-game3").click(function () {
+        $("#btnStart-game3").click(function() {
+            i = Math.floor(Math.random() * 100)
+            answer = data['start'][i]
+            firstHint = "??? " + data['relation'][i] + " " + data['end'][i]
+            answerUrl = answer.replaceAll(" ", "_")
+            answerUrl = answerUrl.toLowerCase()
+            answerUrl = answerUrl.replaceAll("a_", "")
+            answerUrl = answerUrl.replaceAll("a_", "")
+
+            str = '<tr>' +
+                '<td>' + firstHint + '</td>' +
+                '</tr>';
+
+            $(".display-data-game3").append(str);
+
+            startUrl = "http://localhost:3000/conceptnet/query?start=/c/en/" + answerUrl + "&limit=1000"
+            endUrl = "http://localhost:3000/conceptnet/query?end=/c/en/" + answerUrl + "&limit=1000"
+
+            $.ajax({
+                url: startUrl,
+                method: "Get",
+                dataType: 'json'
+            }).done(function(data2) {
+                obj1 = data2['edges']
+
+                for (let j = 0; j < obj1.length; j++) {
+                    if (obj1[j]['end']['language'] == lg) {
+                        startArray.push("??? " + obj1[j]['rel']['label'] + " " + obj1[j]['end']['label'])
+                    }
+                }
+
+                for (let k = 0; k < 4; k++) {
+                    hintsStartArray.push(startArray[Math.floor(Math.random() * startArray.length)])
+                }
+            })
+
+            $.ajax({
+                url: endUrl,
+                method: "Get",
+                dataType: 'json'
+            }).done(function(data3) {
+                obj2 = data3['edges']
+
+                for (let j = 0; j < obj2.length; j++) {
+                    if (obj2[j]['start']['language'] == lg) {
+                        endArray.push(obj2[j]['start']['label'] + " " + obj2[j]['rel']['label'] + " ???")
+                    }
+                }
+
+                for (let k = 0; k < 4; k++) {
+                    hintsEndArray.push(endArray[Math.floor(Math.random() * endArray.length)])
+                }
+            })
+
             $("#textGuess-game3").show()
             $("#btnEnter-game3").show()
             $("#btnStart-game3").hide()
@@ -41,36 +106,37 @@ $(document).ready(function () {
         });
 
         // To do
-        $("#btnEnter-game3").click(function () {
-            // $("#textGues")...
-            // ... is right anwser? alert...
-            stopTimer()
-            restart()
+        $("#btnEnter-game3").click(function() {
+            var guess = $("#textGuess-game3").val()
 
+            if (guess != "" && (guess == answerUrl || guess == answer)) {
+                alert("You guessed correctly! You scored " + points + " points!")
+                stopTimer()
+                restart()
+            } else if (guess != "" && (guess != answerUrl || guess != answer)) {
+                $(".WhoAmI").html("Wrong guess, try again!")
+            }
         });
 
         function addHint() {
             str = ""
 
             // Decides which side to cover
-            if (Math.random() <= 0.5) {
-                str += '<tr>' +
-                    '<td>' + data['start'][i] + '</td>' +
-                    '<td>' + data['relation'][i] + '</td>' +
-                    '<td>' + "???" + '</td>' +
+            if (Math.random() <= 0.5 && hintsStartArray.length != 0) {
+                str = '<tr>' +
+                    '<td>' + hintsStartArray[0] + '</td>' +
                     '</tr>';
 
                 $(".display-data-game3").append(str);
+                hintsStartArray = hintsStartArray.splice(1, hintsStartArray.length)
 
-            } else {
-                str += '<tr>' +
-                    '<td>' + "???" + '</td>' +
-                    '<td>' + data['relation'][i] + '</td>' +
-                    '<td>' + data['end'][i] + '</td>' +
+            } else if (Math.random() > 0.5 && hintsEndArray.length != 0) {
+                str = '<tr>' +
+                    '<td>' + hintsEndArray[0] + '</td>' +
                     '</tr>';
 
                 $(".display-data-game3").append(str);
-
+                hintsEndArray = hintsEndArray.splice(1, hintsEndArray.length)
             }
         }
 
@@ -81,8 +147,9 @@ $(document).ready(function () {
                 count++
 
                 $("h3").html(count)
-                if (count % 2 == 0) {
+                if (count % 20 == 0) {
                     addHint()
+                    points -= 1
                 }
 
                 if (count == 120) {
@@ -102,27 +169,27 @@ $(document).ready(function () {
             clearInterval(timer)
         }
 
-        $("#ahome").click(function () {
+        $("#ahome").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#aconsult").click(function () {
+        $("#aconsult").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame1").click(function () {
+        $("#agame1").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame2").click(function () {
+        $("#agame2").click(function() {
             restart()
             stopTimer()
         });
 
-        $("#agame3").click(function () {
+        $("#agame3").click(function() {
             restart()
             stopTimer()
         });
