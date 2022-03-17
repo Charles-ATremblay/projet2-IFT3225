@@ -31,14 +31,12 @@
       <hr>
 
       <div class="row firstcontainer">
-        <h2 class="big-heading mouvement">ConceptNet</h2>
+        <h2 class="big-heading mouvement">Home</h2>
       </div>
 
       <hr>
 
     </div>
-
-
 
   </section>
 
@@ -47,14 +45,13 @@
   <section id="home">
     <div class="container-fluid">
 
-      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
-        then please be patient for it to load</p>
+      <p>If you see this message, use yarn start on the terminal to bypass CORS</p>
 
-      <input type="button" id="btn-consult" class="btn btn-danger" value="Consult"/>
-      <input type="button" id="btn-games" class="btn btn-danger" value="Games"/>
-      <input type="button" id="btn-game-1" class="btn btn-danger" value="True or False"/>
-      <input type="button" id="btn-game-2" class="btn btn-danger" value="Instructions"/>
-      <input type="button" id="btn-game-3" class="btn btn-danger" value="Who Am I?"/>
+      <input type="button" id="btn-consult" class="btn btn-danger" value="Consult" />
+      <input type="button" id="btn-games" class="btn btn-danger" value="Games" />
+      <input type="button" id="btn-game-1" class="btn btn-danger" value="True or False" />
+      <input type="button" id="btn-game-2" class="btn btn-danger" value="Instructions" />
+      <input type="button" id="btn-game-3" class="btn btn-danger" value="Who Am I?" />
 
 
       <table class="table table-striped display-data-home">
@@ -80,12 +77,9 @@
       <h4>Current offset</h4>
       <h5>0</h5>
       <br>
-      <p>If you see this message, it's because of CORS. Write on the terminal yarn start</p>
 
-      <!-- table-striped -->
       <table class="table display-data-consult">
-        <!-- <tr>
-        </tr> -->
+
       </table>
     </div>
 
@@ -96,9 +90,6 @@
 
   <section id="game1">
     <div class="container-fluid">
-
-      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
-        then please be patient for it to load</p>
 
       <h3>Timer</h3>
       <input type="button" id="btnStart-game1" class="btn btn-danger" value="Start" />
@@ -117,11 +108,8 @@
   <section id="game2">
     <div class="container-fluid">
 
-      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
-        then please be patient for it to load</p>
-
       <h3>Timer</h3>
-      <h4 class = "Instructions">Instruction</h4>
+      <h4 class="Instructions">Instruction</h4>
       <input type="button" id="btnStart-game2" class="btn btn-danger" value="Start" />
       <input type="text" id="textGuess-game2" placeholder="Take a guess">
       <input type="button" id="btnEnter-game2" class="btn btn-danger" value="Enter" />
@@ -140,11 +128,8 @@
   <section id="game3">
     <div class="container-fluid">
 
-      <p>If you see this message, the JSON can't be loaded because of CORS, you must set a live-server. If you have,
-        then please be patient for it to load</p>
-
       <h3>Timer</h3>
-      <h4 class = "WhoAmI"></h4>
+      <h4 class="WhoAmI"></h4>
       <input type="button" id="btnStart-game3" class="btn btn-danger" value="Start" />
       <input type="text" id="textGuess-game3" placeholder="Guess the word">
       <input type="button" id="btnEnter-game3" class="btn btn-danger" value="Enter" />
@@ -168,13 +153,11 @@
 <script>
 
   $(document).ready(function () {
-    $("p").hide();
     hideAll()
     $("#home").show()
     $("#btn-game-1").hide()
     $("#btn-game-2").hide()
     $("#btn-game-3").hide()
-    $("h2").text("Games")
 
   });
 
@@ -189,7 +172,7 @@
     $("h2").text("Home")
   });
 
-  $("#btn-games").click(function() {
+  $("#btn-games").click(function () {
     hideAll()
     $("#home").show()
     $("#btn-game-1").show()
@@ -200,7 +183,7 @@
     $("h2").text("Games")
   })
 
-  $("#btn-consult").click(function() {
+  $("#btn-consult").click(function () {
     hideAll()
     $("#consult").show()
     $("#btn-game-1").hide()
@@ -211,7 +194,7 @@
     $("h2").text("Consult")
   })
 
-  $("#btn-game-1").click(function() {
+  $("#btn-game-1").click(function () {
     hideAll()
     $("#game1").show()
     $("#btn-game-1").hide()
@@ -222,7 +205,7 @@
     $("h2").text("True or False")
   })
 
-  $("#btn-game-2").click(function() {
+  $("#btn-game-2").click(function () {
     hideAll()
     $("#game2").show()
     $("#btn-game-1").hide()
@@ -233,7 +216,7 @@
     $("h2").text("Instructions")
   })
 
-  $("#btn-game-3").click(function() {
+  $("#btn-game-3").click(function () {
     hideAll()
     $("#game3").show()
     $("#btn-game-1").hide()
