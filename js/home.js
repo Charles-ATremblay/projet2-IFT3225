@@ -7,6 +7,8 @@ $(document).ready(function () {
     var lg = "en"
     var url = "http://localhost:3000/conceptnet/query?start=/c/en&limit=1000"
     tableDict = []
+    relArray = []
+    conceptArray = []
 
     $.ajax({
         url:url,
@@ -19,17 +21,32 @@ $(document).ready(function () {
         for(let i = 0; i<obj.length; i++){
             if (obj[i]['start']['language'] == lg && obj[i]['end']['language'] == lg) {
                 tableDict.push({
-                    "start": [obj[i]['start']['label']],
-                    "rel": [obj[i]['rel']['label']],
-                    "end": [obj[i]['end']['label']]
+                    "start": obj[i]['start']['label'],
+                    "rel": obj[i]['rel']['label'],
+                    "end": obj[i]['end']['label']
                 })
             }
         }
         console.log(tableDict)
 
         for(let j=0; j<tableDict.length; j++){
-            
+            if(!relArray.includes(tableDict[j].rel)){
+                relArray.push(tableDict[j].rel)
+            }
+
+            if(!conceptArray.includes(tableDict[j].start) && !conceptArray.includes(tableDict[j].end)){
+                conceptArray.push(tableDict[j].start)
+                conceptArray.push(tableDict[j].end)
+            }
         }
+
+        // TODO: loop in the relations array and picks 20 at random
+        // TODO: loop in the rest of dictionnary for different words
+        for(let k=0; k < relArray.length; k++){
+
+        }
+        console.log(conceptArray)
+
     })
 
     $.getJSON('scrap.json', function (data) {
