@@ -61,8 +61,6 @@ $(document).ready(function () {
                 data['end'].push(endHTML[i])
             }
 
-            console.log(data)
-
             load = true
             restart()
         }
